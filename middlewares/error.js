@@ -21,3 +21,5 @@ function errorHandler(err, req, res, next) {
         stack,
       });
 }
+
+module.exports = errorHandler;
