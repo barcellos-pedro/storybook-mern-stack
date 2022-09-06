@@ -1,7 +1,9 @@
-body {
-    background-color: black;
+p {
+    margin: 10px 0 !important;
 }
 
-h1 {
-    color: white;
+.login-container {
+    width: 400px;
+    margin-top: 50px;
+    text-align: center;
 }
