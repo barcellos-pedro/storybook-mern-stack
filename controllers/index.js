@@ -1,6 +1,6 @@
 /**
  * Login page
- * @route GET /login
+ * @route GET /
  * @access Public
  */
 const login = (req, res) => {
