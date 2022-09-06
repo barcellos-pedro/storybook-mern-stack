@@ -17,6 +17,7 @@ if (NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Set up template engine
 app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
