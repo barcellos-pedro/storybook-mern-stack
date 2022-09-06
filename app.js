@@ -3,6 +3,7 @@ require('dotenv').config({ path: './config/config.env' });
 const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
 const errorHandler = require('./middlewares/error');
+const indexRoutes = require('./routes/index');
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
@@ -20,6 +21,7 @@ app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
+app.use('/', indexRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () =>
