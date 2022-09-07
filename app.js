@@ -2,6 +2,7 @@ require('dotenv').config({ path: './config/config.env' });
 
 const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
+const { usePassport } = require('./config/passport-auth');
 const path = require('path');
 const errorHandler = require('./middlewares/error');
 const indexRoutes = require('./routes/index');
@@ -18,13 +19,12 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 
 // Passport config
-const passportAuth = require('./config/passport-auth');
-passportAuth(passport);
+usePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
