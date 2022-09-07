@@ -11,6 +11,7 @@ const User = require('../models/User');
  */
 const verify = async (accessToken, refreshToken, profile, cb) => {
   console.log(profile);
+
   // await User.findOrCreate({ googleId: profile.id }, (err, user) => {
   //   return cb(err, user);
   // });
@@ -29,13 +30,11 @@ const usePassport = (passport) => {
 
   // Serialization and Deserialization
   passport.serializeUser((user, cb) => {
-    process.nextTick(() => {
-      cb(null, { id: user.id, username: user.username, name: user.name });
-    });
+    cb(null, user);
   });
 
   passport.deserializeUser((user, cb) => {
-    process.nextTick(() => cb(null, user));
+    User.findById(user.id, (error, user) => cb(error, user));
   });
 };
 
