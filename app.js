@@ -6,6 +6,7 @@ const { usePassport } = require('./config/passport-auth');
 const path = require('path');
 const errorHandler = require('./middlewares/error');
 const indexRoutes = require('./routes/index');
+const authRoutes = require('./routes/auth');
 const passport = require('passport');
 const session = require('express-session');
 const morgan = require('morgan');
@@ -45,6 +46,7 @@ app.set('view engine', '.hbs');
 app.set('views', './views');
 
 app.use('/', indexRoutes);
+app.use('/auth', authRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () =>
