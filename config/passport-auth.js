@@ -12,9 +12,27 @@ const User = require('../models/User');
 const verify = async (accessToken, refreshToken, profile, cb) => {
   console.log(profile);
 
-  // await User.findOrCreate({ googleId: profile.id }, (err, user) => {
-  //   return cb(err, user);
-  // });
+  try {
+    let foundUser = await User.findOne({ googleId: profile.id });
+
+    if (foundUser) {
+      cb(null, foundUser);
+      return;
+    }
+
+    const newUser = await User.create({
+      googleId: profile.id,
+      displayName: profile.displayName,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      image: profile.photos[0].value,
+    });
+
+    cb(null, newUser);
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
 };
 
 const options = {
@@ -28,13 +46,18 @@ const strategy = new GoogleStrategy(options, verify);
 const usePassport = (passport) => {
   passport.use(strategy);
 
-  // Serialization and Deserialization
+  // Serialization
   passport.serializeUser((user, cb) => {
-    cb(null, user);
+    process.nextTick(() => {
+      cb(null, { user });
+    });
   });
 
+  // Deserialization
   passport.deserializeUser((user, cb) => {
-    User.findById(user.id, (error, user) => cb(error, user));
+    process.nextTick(() => {
+      return cb(null, user);
+    });
   });
 };
 
