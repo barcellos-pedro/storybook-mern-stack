@@ -2,13 +2,27 @@
  * Authentication with Google
  *
  * Successful authentication, redirect to home
+ *
  * @route GET /auth/google/callback
  * @access Public
  */
-const auth = (req, res) => {
+const login = (req, res) => {
   res.redirect('/dashboard');
 };
 
+/**
+ * Logout user with logout method from Passport middleware.
+ * And then redirects to login page
+ *
+ * @route GET /auth/logout
+ * @access Public
+ */
+const logout = (req, res) => {
+  res.logout();
+  res.redirect('/');
+};
+
 module.exports = {
-  auth,
+  login,
+  logout,
 };
