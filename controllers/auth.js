@@ -18,8 +18,12 @@ const login = (req, res) => {
  * @access Public
  */
 const logout = (req, res) => {
-  res.logout();
-  res.redirect('/');
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 };
 
 module.exports = {
