@@ -9,6 +9,7 @@ const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
@@ -21,6 +22,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
   })
 );
 
