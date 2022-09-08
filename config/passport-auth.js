@@ -2,16 +2,14 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 
 /**
- * Callback which receives the access token and
- * optional refresh token, as well as profile
+ * Callback which receives the access token, optional refresh token, as well as profile
  * which contains the authenticated user's Google profile.
- * The verify callback must call cb providing a user to complete authentication.
+ *
+ * The verify must use a callback to provide a user to complete authentication.
  *
  * @see https://www.passportjs.org/packages/passport-google-oauth20
  */
 const verify = async (accessToken, refreshToken, profile, cb) => {
-  console.log(profile);
-
   try {
     let foundUser = await User.findOne({ googleId: profile.id });
 
