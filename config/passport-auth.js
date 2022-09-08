@@ -29,7 +29,8 @@ const verify = async (accessToken, refreshToken, profile, cb) => {
     cb(null, newUser);
   } catch (error) {
     console.error(error);
-    throw new Error(error);
+    cb(error, null);
+    throw error;
   }
 };
 
