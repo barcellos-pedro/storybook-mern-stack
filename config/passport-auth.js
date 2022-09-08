@@ -47,7 +47,7 @@ const usePassport = (passport) => {
   // Serialization
   passport.serializeUser((user, cb) => {
     process.nextTick(() => {
-      cb(null, { user });
+      cb(null, user);
     });
   });
 
