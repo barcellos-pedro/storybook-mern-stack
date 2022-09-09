@@ -47,6 +47,8 @@ const usePassport = (passport) => {
 
   // Serialization
   passport.serializeUser((user, cb) => {
+    // Every time the event loop takes a full trip, we call it a tick.
+    // Invoke the callback function at the end of the current operation, before the next event loop tick starts
     process.nextTick(() => {
       cb(null, user);
     });
