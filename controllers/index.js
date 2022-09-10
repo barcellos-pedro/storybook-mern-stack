@@ -1,3 +1,5 @@
+const Story = require('../models/Story');
+
 /**
  * Login page
  * @route GET /
@@ -12,8 +14,14 @@ const login = (req, res) => {
  * @route GET /dashboard
  * @access Public
  */
-const dashboard = (req, res) => {
-  res.render('dashboard', { user: req.user });
+const dashboard = async (req, res) => {
+  try {
+    // lean() to render data on handlerbars as js objects, not documents
+    const stories = await Story.find({ user: req.user._id }).lean();
+    res.render('dashboard', { user: req.user, stories });
+  } catch (error) {
+    res.render('error/500');
+  }
 };
 
 module.exports = {
