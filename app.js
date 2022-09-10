@@ -3,7 +3,7 @@ require('dotenv').config({ path: './config/config.env' });
 const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
 const { usePassport } = require('./config/passport-auth');
-const { formatDate } = require('./helpers/hbs');
+const hbsHelpers = require('./helpers/hbs');
 const path = require('path');
 const errorHandler = require('./middlewares/error');
 const indexRoutes = require('./routes/index');
@@ -57,7 +57,7 @@ app.engine(
   engine({
     extname: '.hbs',
     defaultLayout: 'main',
-    helpers: { formatDate },
+    helpers: { ...hbsHelpers },
   })
 );
 app.set('view engine', '.hbs');
