@@ -8,4 +8,6 @@ router
   .get(ensureAuth, storiesController.add)
   .post(ensureAuth, storiesController.create);
 
+router.get('/', ensureAuth, storiesController.publicStories)
+
 module.exports = router;
