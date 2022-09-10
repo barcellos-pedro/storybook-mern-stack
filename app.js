@@ -7,6 +7,7 @@ const path = require('path');
 const errorHandler = require('./middlewares/error');
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
+const storiesRoutes = require('./routes/stories');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -51,6 +52,7 @@ app.set('views', './views');
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
+app.use('/stories', storiesRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () =>
