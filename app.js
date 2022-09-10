@@ -17,6 +17,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 
+// Body parser
+app.use(express.urlencoded({ extended: false }));
+// Accepts JSON Data
+app.use(express.json());
+
 // Sessions config
 app.use(
   session({
@@ -50,9 +55,12 @@ app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
+// Routes
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/stories', storiesRoutes);
+
+// Custom error handler
 app.use(errorHandler);
 
 app.listen(PORT, () =>
