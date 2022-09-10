@@ -3,6 +3,7 @@ require('dotenv').config({ path: './config/config.env' });
 const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
 const { usePassport } = require('./config/passport-auth');
+const { formatDate } = require('./helpers/hbs');
 const path = require('path');
 const errorHandler = require('./middlewares/error');
 const indexRoutes = require('./routes/index');
@@ -51,7 +52,14 @@ if (NODE_ENV === 'development') {
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up template engine
-app.engine('.hbs', engine({ extname: '.hbs' }));
+app.engine(
+  '.hbs',
+  engine({
+    extname: '.hbs',
+    defaultLayout: 'main',
+    helpers: { formatDate },
+  })
+);
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
