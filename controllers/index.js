@@ -16,6 +16,7 @@ const login = (req, res) => {
  */
 const dashboard = async (req, res) => {
   try {
+    // Find stories based on current logged in user '_id'
     // lean() to render data on handlerbars as js objects, not documents
     const stories = await Story.find({ user: req.user._id }).lean();
     res.render('dashboard', { user: req.user, stories });
