@@ -8,12 +8,11 @@ const formatDate = (date) => new Date(date).toLocaleString();
 /**
  * Return shorter text
  */
-const truncate = (text, size = 50) => {
+const truncate = (text, size) => {
   if (text.length < size) {
     return text;
   }
-  const formattedText = text.substr(0, size);
-  return `${formattedText}...`;
+  return `${text.substr(0, size)}...`;
 };
 
 /**
