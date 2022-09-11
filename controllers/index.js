@@ -18,6 +18,7 @@ const dashboard = async (req, res) => {
   try {
     // Find stories based on current logged in user '_id'
     // lean() to render data on handlerbars as js objects, not documents
+    // req.user comes from passport middleware
     const stories = await Story.find({ user: req.user._id }).lean();
     res.render('dashboard', { user: req.user, stories });
   } catch (error) {
