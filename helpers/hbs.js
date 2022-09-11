@@ -31,4 +31,17 @@ const editIcon = (storyUser, loggedUser, storyId, floating = true) => {
   }
 };
 
-module.exports = { formatDate, truncate, stripTags, editIcon };
+/**
+ * Make a select option selected
+ */
+const select = (selected, options) => {
+  return options
+    .fn(this)
+    .replace(new RegExp(' value="' + selected + '"'), '$& selected="selected"')
+    .replace(
+      new RegExp('>' + selected + '</option>'),
+      ' selected="selected"$&'
+    );
+};
+
+module.exports = { formatDate, truncate, stripTags, editIcon, select };
