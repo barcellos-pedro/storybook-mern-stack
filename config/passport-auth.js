@@ -6,6 +6,8 @@ const User = require('../models/User');
  * which contains the authenticated user's Google profile.
  *
  * The verify must use a callback to provide a user to complete authentication.
+ * cb(null, user) or
+ * cb(error) for error cases
  *
  * @see https://www.passportjs.org/packages/passport-google-oauth20
  */
@@ -14,8 +16,7 @@ const verify = async (accessToken, refreshToken, profile, cb) => {
     let foundUser = await User.findOne({ googleId: profile.id });
 
     if (foundUser) {
-      cb(null, foundUser);
-      return;
+      return cb(null, foundUser);
     }
 
     const newUser = await User.create({
@@ -26,11 +27,10 @@ const verify = async (accessToken, refreshToken, profile, cb) => {
       image: profile.photos[0].value,
     });
 
-    cb(null, newUser);
+    return cb(null, newUser);
   } catch (error) {
     console.error(error);
-    cb(error, null);
-    throw error;
+    return cb(error);
   }
 };
 
