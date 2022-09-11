@@ -5,14 +5,19 @@
     <div class='col s12 m4'>
       <div class='card'>
         <div class='card-image'>
-          {{! TODO: edit icon only for user own story }}
+        <!-- ../user to grab logged user outside the story user within the loop -->
+          {{{editIcon user ../user _id}}}
         </div>
         <div class='card-content center-align'>
           <h5>{{title}}</h5>
           <p>{{stripTags (truncate body 150)}}</p>
           <br />
           <div class='chip'>
-            <img src='{{user.image}}' alt='{{user.displayName}} photo' referrerPolicy="no-referrer"/>
+            <img
+              src='{{user.image}}'
+              alt='{{user.displayName}} photo'
+              referrerPolicy='no-referrer'
+            />
             <a href='/stories/user/{{user._id}}'>{{user.displayName}}</a>
           </div>
         </div>
