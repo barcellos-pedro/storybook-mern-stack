@@ -40,6 +40,12 @@ usePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Set up global var to access logged user in any view
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 // Connect to Database
 connectDB();
 
