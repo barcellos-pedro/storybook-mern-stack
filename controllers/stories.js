@@ -5,7 +5,7 @@ const Story = require('../models/Story');
  * @route GET /stories/add
  * @access Private
  */
-const add = async (req, res) => {
+const addPage = async (req, res) => {
   res.render('stories/add');
 };
 
@@ -41,8 +41,65 @@ const publicStories = async (req, res) => {
   }
 };
 
+/**
+ * Edit Story page
+ * @route GET /stories/edit/:id
+ * @access Private
+ */
+const editPage = async (req, res) => {
+  try {
+    // lean() to render data on handlerbars as js objects, not documents
+    const story = await Story.findById(req.params.id).lean();
+
+    if (!story) {
+      res.render('error/404');
+      return;
+    }
+
+    // make sure logged user can only edit its stories
+    if (story.user.toString() !== req.user._id) {
+      res.render('error/403');
+      return;
+    }
+
+    res.render('stories/edit', { story });
+  } catch (error) {
+    res.render('error/500');
+  }
+};
+
+/**
+ * Edit Story page
+ * @route PUT /stories/edit/:id
+ * @access Private
+ */
+const edit = async (req, res) => {
+  try {
+    const storyId = req.params.id;
+    const story = await Story.findById(storyId).lean();
+
+    if (!story) {
+      res.render('error/404');
+      return;
+    }
+
+    if (story.user.toString() !== req.user._id) {
+      res.render('error/403');
+      return;
+    }
+
+    await Story.findByIdAndUpdate(storyId, { ...req.body });
+
+    res.redirect('/dashboard');
+  } catch (error) {
+    res.render('error/500');
+  }
+};
+
 module.exports = {
-  add,
+  addPage,
   create,
   publicStories,
+  editPage,
+  edit,
 };
