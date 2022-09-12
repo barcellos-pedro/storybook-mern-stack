@@ -129,6 +129,23 @@ const storyPage = async (req, res) => {
   }
 };
 
+/**
+ * Show User public stories
+ * @route GET /stories/user/:id
+ * @access Private
+ */
+const userStories = async (req, res) => {
+  try {
+    const stories = await Story.find({ status: 'public', user: req.params.id })
+      .populate('user')
+      .lean();
+
+    res.render('stories/index', { showUserStories: true, stories });
+  } catch (error) {
+    res.render('error/500');
+  }
+};
+
 module.exports = {
   addPage,
   create,
@@ -137,4 +154,5 @@ module.exports = {
   edit,
   deleteStory,
   storyPage,
+  userStories,
 };
