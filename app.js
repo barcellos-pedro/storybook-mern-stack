@@ -1,5 +1,4 @@
-require('dotenv').config({ path: './config/config.env' });
-
+require('dotenv').config();
 const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
 const { usePassport } = require('./config/passport-auth');
