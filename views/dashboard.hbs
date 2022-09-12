@@ -20,7 +20,16 @@
             <span class='dash-status'>{{status}}</span>
           </td>
           <td>
-            <!-- Delete and Update -->
+            <!-- Update Story Page -->
+            <a href='/stories/edit/{{_id}}' class='btn btn-float'>
+              <i class='fas fa-edit'></i>
+            </a>
+            <!-- Delete Story with Method override -->
+            <form method='POST' action='/stories/delete/{{_id}}?_method=DELETE'>
+              <button type='submit' class='btn red'>
+                <i class='fas fa-trash'></i>
+              </button>
+            </form>
           </td>
         </tr>
       </tbody>
