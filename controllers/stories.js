@@ -96,10 +96,25 @@ const edit = async (req, res) => {
   }
 };
 
+/**
+ * Delete Story
+ * @route DELETE /stories/delete/:id
+ * @access Private
+ */
+const deleteStory = async (req, res) => {
+  try {
+    await Story.findByIdAndDelete(req.params.id);
+    res.redirect('/dashboard');
+  } catch (error) {
+    res.render('error/500');
+  }
+};
+
 module.exports = {
   addPage,
   create,
   publicStories,
   editPage,
   edit,
+  deleteStory,
 };
