@@ -2,6 +2,7 @@ require('dotenv').config();
 const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
 const { usePassport } = require('./config/passport-auth');
+const cors = require("cors");
 const hbsHelpers = require('./helpers/hbs');
 const methodOverride = require('method-override');
 const path = require('path');
@@ -17,6 +18,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
+
+app.use(cors())
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
