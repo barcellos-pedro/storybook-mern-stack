@@ -98,7 +98,7 @@ const edit = async (req, res) => {
 
 /**
  * Delete Story
- * @route DELETE /stories/delete/:id
+ * @route GET /stories/delete/:id
  * @access Private
  */
 const deleteStory = async (req, res) => {
@@ -110,6 +110,25 @@ const deleteStory = async (req, res) => {
   }
 };
 
+/**
+ * Show single Story (Read more)
+ * @route GET /stories/:id
+ * @access Private
+ */
+const storyPage = async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id).populate('user').lean();
+
+    if (!story) {
+      return res.render('error/404');
+    }
+
+    res.render('stories/show', { story });
+  } catch (error) {
+    res.render('error/404');
+  }
+};
+
 module.exports = {
   addPage,
   create,
@@ -117,4 +136,5 @@ module.exports = {
   editPage,
   edit,
   deleteStory,
+  storyPage,
 };
