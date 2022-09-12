@@ -4,6 +4,7 @@ const { connectDB } = require('./config/db');
 const { engine } = require('express-handlebars');
 const { usePassport } = require('./config/passport-auth');
 const hbsHelpers = require('./helpers/hbs');
+const methodOverride = require('method-override');
 const path = require('path');
 const errorHandler = require('./middlewares/error');
 const indexRoutes = require('./routes/index');
@@ -20,8 +21,12 @@ const NODE_ENV = process.env.NODE_ENV;
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
+
 // Accepts JSON Data
 app.use(express.json());
+
+// Method Override | Override POST with query param ?_method=PUT
+app.use(methodOverride('_method'));
 
 // Sessions config
 app.use(
