@@ -25,7 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 // Accepts JSON Data
 app.use(express.json());
 
-// Method Override | Override POST with query param ?_method=PUT
+// Method Override | Override method on forms
+// with query param ?_method=<PUT|DELETE>
 app.use(methodOverride('_method'));
 
 // Sessions config
