@@ -17,4 +17,6 @@ router
 
 router.delete('/delete/:id', ensureAuth, storiesController.deleteStory);
 
+router.get('/:id', ensureAuth, storiesController.storyPage)
+
 module.exports = router;
