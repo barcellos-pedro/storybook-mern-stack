@@ -1,4 +1,8 @@
-<h1>Public Stories</h1>
+{{#if showUserStories}}
+  <h1>{{user.displayName}} Stories</h1>
+{{else}}
+  <h1>Public Stories</h1>
+{{/if}}
 
 <div class='row'>
   {{#each stories}}
